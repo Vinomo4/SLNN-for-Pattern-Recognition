@@ -1,0 +1,128 @@
+```{r}
+dd = read.table(file.choose(),header = T)
+dd
+```
+
+Graficas de convergencia
+
+```{r}
+Av <- c()
+for (j in c(0.0, 1.0, 10.0)) {
+  for (k in c(1,3,7)) {
+    Av <- rbind(Av, colMeans(dd[dd$Lambda==j & dd$isd==k,])[-1]) #means de todo?
+  }
+}
+Av <- as.data.frame(Av)
+Av
+```
+
+```{r}
+a = (cbind(Av$Lambda,Av$isd,Av$niter,Av$tex,Av$tex.niter))
+colnames(a) <- c("Lambda", "isd", "nº iterations","time of execution","time/iterations")
+as.data.frame(a)
+```
+
+```{r,echo=F}
+Av$L.[Av$L. == "Inf"] = 100
+plot(x=Av$Lambda, y=Av$L., col=c("blue","orange","dark green"), pch=19, main="Loss function based on Lambda and isd", xlab="Lambda", ylab="Mean Loss function", ylim = c(0,52))
+lines(x=c(0,1,10), Av$L.[Av$isd==1], col="blue")
+lines(x=c(0,1,10), Av$L.[Av$isd==3], col="orange")
+lines(x=c(0,1,10), Av$L.[Av$isd==7], col="dark green")
+legend('topright', c("GM", "BFGS", "SGM"), fill = c("blue","orange","dark green"))
+
+```
+
+
+
+Por numero como se comporta cada L function.
+
+```{r}
+par(mfrow=c(3,2))
+for (j in c(0:9)){
+  aux = dd[dd$num_target == j,]
+  aux$L.[aux$L. == "Inf"] = 250
+  plot(y = aux$L., x = aux$Lambda,col=c("blue","orange","dark green"), pch=19, main= j, xlab="Lambda", ylab="Loss function", ylim = c(0,120))
+  lines(x=c(0,1,10), aux$L.[aux$isd==1], col="blue")
+  lines(x=c(0,1,10), aux$L.[aux$isd==3], col="orange")
+  lines(x=c(0,1,10), aux$L.[aux$isd==7], col="dark green")
+  legend('topright', c("GM", "BFGS", "SGM"), fill = c("blue","orange","dark green"),cex = 0.75)
+  aux
+}
+  
+```
+
+Media de test accuracy por combinaciones
+```{r}
+plot(x=Av$Lambda, y=Av$te_acc, col=c("blue","orange","dark green"), pch=19, main="Value of test accuracy based on Lambda and isd", xlab="Lambda", ylab="Mean test accuracy")
+lines(x=c(0,1,10), Av$te_acc[Av$isd==1], col="blue")
+lines(x=c(0,1,10), Av$te_acc[Av$isd==3], col="orange")
+lines(x=c(0,1,10), Av$te_acc[Av$isd==7], col="dark green")
+legend('right', c("GM", "BFGS", "SGM"), fill = c("blue","orange","dark green"))
+
+a <- (cbind(Av$Lambda,Av$isd,Av$te_acc))
+colnames(a) <- c("Lambda", "isd", "Mean of test acc")
+as.data.frame(a)
+```
+
+
+Media trainning accuracy por combinaciones
+
+```{r}
+plot(x=Av$Lambda, y=Av$tr_acc, col=c("blue","orange","dark green"), pch=19, main="Value of training accuracy based on Lambda and isd", xlab="Lambda", ylab="Mean training accuracy", ylim = c(50,100))
+lines(x=c(0,1,10), Av$tr_acc[Av$isd==1], col="blue")
+lines(x=c(0,1,10), Av$tr_acc[Av$isd==3], col="orange")
+lines(x=c(0,1,10), Av$tr_acc[Av$isd==7], col="dark green")
+legend('right', c("GM", "BFGS", "SGM"), fill = c("blue","orange","dark green"))
+
+a <- (cbind(Av$Lambda,Av$isd,Av$tr_acc))
+colnames(a) <- c("Lambda", "isd", "Mean of test acc")
+as.data.frame(a)
+```
+
+
+Test accuracy por numero
+
+```{r}
+par(mfrow=c(3,2))
+for (j in c(0:9)){
+  aux = dd[dd$num_target == j,]
+  plot(y = aux$te_acc, x = aux$Lambda,col=c("blue","orange","dark green"), pch=19, main= j, xlab="Lambda", ylab="Test accuracy")
+  lines(x=c(0,1,10), aux$te_acc[aux$isd==1], col="blue")
+  lines(x=c(0,1,10), aux$te_acc[aux$isd==3], col="orange")
+  lines(x=c(0,1,10), aux$te_acc[aux$isd==7], col="dark green")
+  legend('right', c("GM", "BFGS", "SGM"), fill = c("blue","orange","dark green"),cex = 0.75)
+}
+
+```
+
+
+Training accuracy por numero
+
+
+```{r}
+par(mfrow=c(5,2),mar=c(1,1,1,1))
+for (j in c(0:9)){
+  aux = dd[dd$Target == j,]
+  plot(y = aux$tr_acc, x = aux$Lambda,col=c("blue","orange","dark green"), pch=19, main= j, xlab="Lambda", ylab="Training accuracy")
+  lines(x=c(0,1,10), aux$tr_acc[aux$isd==1], col="blue")
+  lines(x=c(0,1,10), aux$tr_acc[aux$isd==3], col="orange")
+  lines(x=c(0,1,10), aux$tr_acc[aux$isd==7], col="dark green")
+  legend('right', c("GM", "BFGS", "SGM"), fill = c("blue","orange","dark green"))
+}
+
+```
+
+
+
+
+```{r}
+Av2 <- c()
+dd2 = dd[dd$Lambda != 10 | dd$isd != 7,]
+dd2
+for (i in c(0:9)) {
+    Av2 <- rbind(Av2, colMeans(dd2[dd2$num_target==i,])) #means de todo?
+}
+Av2 <- as.data.frame(Av2)
+Av2
+```
+
