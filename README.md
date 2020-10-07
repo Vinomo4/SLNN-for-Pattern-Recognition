@@ -51,7 +51,7 @@ The files contained on this repository are:
 
 * All the necessary files for blurred number generation, the UO algorithms used to train the SLNN and the files used to perform, numerically and graphically, benchmarking of the obtained results. All these files can be easily executed and modified using [MATLAB®](https://es.mathworks.com/products/matlab.html).
 
-* An extensive report about the development and conclusions of this project. 
+* An extensive [`report`](./Report.pdf) about the development and conclusions of this project. 
 
 *Note: The rest of the files in the master branch are auxiliary or license related*
 
