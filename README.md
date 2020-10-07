@@ -31,18 +31,17 @@ Once the input of the data is created, several algorithms will be used to train 
 
 After the training phase the SLNN will be used to recognize some new test numbers. Once this testing phase has finished, several  benchmarks will be performed to test the accuracy  and performance of the used algorithms and the selected values for the function hiperparameters.
 
+*Note: In order to check the accuracy, the [uo_nn_Xyplot](uo_nn_Xyplot.m) will be used, where green is used to identify right positive, blue right negative, pink false positive and red false negative*
+
 <p align="center">
   <img src='README Images/benchmarking.PNG'/ >
 </p>
-
-
 
 ## Used algorithms
 
 In order to solve the UO problem, several algorithms have been used:
 
-* Gradient Method.
+* Gradient Method (GM).
 * 
-*
-*
+* Stochastic Gradient Method (SGM).
 
