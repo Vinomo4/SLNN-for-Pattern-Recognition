@@ -47,7 +47,7 @@ To solve the UO problem, several algorithms have been used:
 * Stochastic Gradient Method (*SGM*).
 
 ## Architecture
-The files contained on this repository are:
+The files contained in this repository are:
 
 * All the necessary files for blurred number generation, the UO algorithms used to train the SLNN and the files used to perform, numerically and graphically, benchmarking of the obtained results. All these files can be easily executed and modified using [MATLAB®](https://es.mathworks.com/products/matlab.html).
 
